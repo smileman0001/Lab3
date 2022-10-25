@@ -209,10 +209,15 @@ public class DragonPicker : MonoBehaviour
 6) Распределить все элементы по тематическим папкам
 
 ![image](Screenshots/Animations.png)
+
 ![image](Screenshots/Materials.png)
+
 ![image](Screenshots/Prefabs.png)
+
 ![image](Screenshots/Scenes.png)
+
 ![image](Screenshots/Scripts.png)
+
 ![image](Screenshots/Textures.png)
 
 ## Задание 3

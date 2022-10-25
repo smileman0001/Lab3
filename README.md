@@ -123,23 +123,97 @@ public class EnergyShield : MonoBehaviour
 ### – 4 Практическая работа «Структурирование исходных файлов в папке».
 
 #### Ход работы (задание 2).
-1) Импотрировать плагин PluginYG
-2) Написать скрипт:
+1) Скачать и импортировать ассет Autumn Mountain
+2) Изменить скрипт DragonEgg(Изменения метода Update):
 
-![image](Screenshots/SDK_Script.png)
+```cs
 
-3) Добавить на сцену пустой объект, в который добавить написанный скрипт
+    // Update is called once per frame
+    void Update()
+    {
+        if (transform.position.y < bottomY){
+            Destroy(this.gameObject);
+            DragonPicker apScript = Camera.main.GetComponent<DragonPicker>();
+            apScript.DragonEggDestroyed();
+        }
+    }
 
-![image](Screenshots/GameObject.png)
+```
 
-4) Добавить на сцену готовый префаб YandexGame, настроить его
+3) Добавить в скрипт DragonPicker учет отсавшихся жизней(щитов). Если щиты заканчиваются, то сцена перезагржуается
 
-![image](Screenshots/YandexGame.png)
 
-5) При запуске игры через сервис Яндекс игры на месте "unauthorized" будет написано имя пользователя
+```cs
 
-![image](Screenshots/AuthCheck.png)
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
+
+public class DragonPicker : MonoBehaviour
+{
+    public GameObject energyShieldPrefab;
+    public int numEnergyShield = 3;
+    public float energyShieldBottomY = -6f;
+    public float energyShieldRadius = 1.5f;
+
+    public List<GameObject> shieldList;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        shieldList = new List<GameObject>();
+        for (int i = 1; i <= numEnergyShield; i++){
+            GameObject tShieldGo = Instantiate<GameObject>(energyShieldPrefab);
+            tShieldGo.transform.position = new Vector3(0, energyShieldBottomY, 0);
+            tShieldGo.transform.localScale = new Vector3(1*i, 1*i, 1*i);
+            shieldList.Add(tShieldGo);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void DragonEggDestroyed(){
+        // GameObject[] tDragonEggArray = GameObject.FindGameObjectsWithTag("Dragon Egg");
+        // foreach (GameObject tGI in tDragonEggArray){
+        //     Destroy(tGI);
+        // }
+        int shieldIndex = shieldList.Count - 1;
+        GameObject tShieldGo = shieldList[shieldIndex];
+        shieldList.RemoveAt(shieldIndex);
+        Destroy(tShieldGo);
+
+        if (shieldList.Count == 0) {
+            SceneManager.LoadScene("_0Scene");
+        }
+    }
+}
+
+
+```
+
+4) Добавить на сцену готовый префаб горы и пак префабов неба, настроить их
+
+![image](Screenshots/NewTextures.png)
+![image](Screenshots/Sky.png)
+
+5) Создать новые папки
+
+![image](Screenshots/Folders.png)
+
+6) Распределить все элементы по тематическим папкам
+
+![image](Screenshots/Animations.png)
+![image](Screenshots/Materials.png)
+![image](Screenshots/Prefabs.png)
+![image](Screenshots/Scenes.png)
+![image](Screenshots/Scripts.png)
+![image](Screenshots/Textures.png)
 
 ## Задание 3
 ### Используя видео-материалы практических работ 1-5 повторить реализацию игровых механик:

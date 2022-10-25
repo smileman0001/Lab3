@@ -68,18 +68,15 @@
         if(Collided.tag == "Dragon Egg"){
             Destroy(Collided);
         }
-        int score = int.Parse(scoreGT.text);
-        score += 1;
-        scoreGT.text = score.ToString();
     }
 
 ```
 
 
 
-3) Добавить счетчик очков
+3) Добавить счетчик очков и настроить его
  
-![image](Screenshots/DragonEnemy.png)
+![image](Screenshots/ScoreText.png)
 
 4) Изменить скрипт ловли объектов
 
@@ -119,14 +116,6 @@ public class EnergyShield : MonoBehaviour
 }
 
 ```
-
-5) Связать элемент Ui и скрипт
-
-![image](Screenshots/DragonEgg.png)
-
-
-
-
 
 ## Задание 2
 ### Используя видео-материалы практических работ 1-5 повторить реализацию игровых механик:

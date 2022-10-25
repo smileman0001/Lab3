@@ -1,5 +1,5 @@
-# Лабораторная работа № 2 Интеграция сервиса для получения данных профиля пользователя.
-Отчет по лабораторной работе №2 выполнил:
+# Лабораторная работа № 3 Реализация интерфейса пользователя
+Отчет по лабораторной работе №3 выполнил:
 - Строшков Артем Валерьевич
 - РИ-300004
 
@@ -39,58 +39,99 @@
 Создание интерактивного приложения и изучение принципов интеграции в него игровых сервисов.
 
 ## Задание 1
-### По теме видео практических работ 1-5 повторить реализацию игры на Unity. Привести описание выполненных действий.
+### Используя видео-материалы практических работ 1-5 повторить реализацию игровых механик:
+### – 1 Практическая работа «Реализация механизма ловли объектов».
+### – 2 Практическая работа «Реализация графического интерфейса с добавлением счетчика очков».
 
 #### Ход работы (задание 1).
-1) Создать новый проект из шаблона 3D – Core;
-2) Скачать и импортировать нужные ассеты
+1) Реализовать управление энергетическими щитами с помощью движения мыши
 
-![image](Screenshots/Assets.png)
+```cs
 
-3) Взять готовый префаб дракона и разместить на сцене
+   void Update() {
+        Vector3 mousePos2D = Input.mousePosition;
+        mousePos2D.z = -Camera.main.transform.position.z;
+        Vector3 mousePos3D = Camera.main.ScreenToWorldPoint(mousePos2D);
+        Vector3 pos = this.transform.position;
+        pos.x = mousePos3D.x;
+        this.transform.position = pos;
+    }
+
+```
+
+2) Реализовать "ловлю" объекта
+
+```cs
+
+    private void OnCollisionEnter(Collision coll) {
+        GameObject Collided  = coll.gameObject;
+        if(Collided.tag == "Dragon Egg"){
+            Destroy(Collided);
+        }
+        int score = int.Parse(scoreGT.text);
+        score += 1;
+        scoreGT.text = score.ToString();
+    }
+
+```
+
+
+
+3) Добавить счетчик очков
  
 ![image](Screenshots/DragonEnemy.png)
 
-4) Создать контроллер анимации и добавить дракону анимацию полета
+4) Изменить скрипт ловли объектов
 
-![image](Screenshots/AnimatorCTRL.png)
-![image](Screenshots/FlyIdle.png)
+```cs
 
-5) Создать объект драконьего яйца, сделать префаб
+   using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+public class EnergyShield : MonoBehaviour
+{
+    public TextMeshProUGUI scoreGT;
+    void Start() {
+        GameObject scoreGO = GameObject.Find("Score");
+        scoreGT = scoreGO.GetComponent<TextMeshProUGUI>();
+        scoreGT.text = "0";
+    }
+    void Update() {
+        Vector3 mousePos2D = Input.mousePosition;
+        mousePos2D.z = -Camera.main.transform.position.z;
+        Vector3 mousePos3D = Camera.main.ScreenToWorldPoint(mousePos2D);
+        Vector3 pos = this.transform.position;
+        pos.x = mousePos3D.x;
+        this.transform.position = pos;
+    }
+
+    private void OnCollisionEnter(Collision coll) {
+        GameObject Collided  = coll.gameObject;
+        if(Collided.tag == "Dragon Egg"){
+            Destroy(Collided);
+        }
+        int score = int.Parse(scoreGT.text);
+        score += 1;
+        scoreGT.text = score.ToString();
+    }
+}
+
+```
+
+5) Связать элемент Ui и скрипт
 
 ![image](Screenshots/DragonEgg.png)
 
-6) Создать объект энергетического щита, сделать префаб
 
-![image](Screenshots/EnergyShield.png)
-
-7) Настроить главную камеру
-
-![image](Screenshots/MainCamera.png)
-
-8) Код C# для появления яйца, изменение направления полета дракона. Подключить префаб яйца
-
-![image](Screenshots/EnemyDragonScript.png)
-![image](Screenshots/DragonEggConect.png)
-
-9) Добавить эффект взрыва при касании яйца земли, добавить землю
-
-![image](Screenshots/Explosion.png)
-![image](Screenshots/ParticleSystem.png)
-![image](Screenshots/DragonEggScript.png)
-
-10) Написать скрипт, который будет управлять игрой
-
-![image](Screenshots/DragonPickerScript.png)
-
-11) В консоли разработчика "Яедкс Игры" создать черновик добавления игры
-
-![image](Screenshots/YaGames.png)
 
 
 
 ## Задание 2
-### В проект, выполненный в предыдущем задании, добавить систему проверки того, что SDK подключен (доступен в режиме онлайн и отвечает на запросы);
+### Используя видео-материалы практических работ 1-5 повторить реализацию игровых механик:
+### – 3 Практическая работа «Уменьшение жизни. Добавление текстур».
+### – 4 Практическая работа «Структурирование исходных файлов в папке».
 
 #### Ход работы (задание 2).
 1) Импотрировать плагин PluginYG
@@ -112,11 +153,9 @@
 
 
 ## Задание 3
-### 1 Произвести сравнительный анализ игровых сервисов Яндекс Игры и VK Game;
-### 2 Дать сравнительную характеристику сервисов, описать функционал;
-### 3 Описать их методы интеграции с Unity;
-### 4 Произвести сравнение, сделать выводы;
-### 5 Подготовить реферат по результатам выполнения пунктов 1-4 .
+### Используя видео-материалы практических работ 1-5 повторить реализацию игровых механик:
+### 5 Практическая работа «Интеграция игровых сервисов в готовое приложение».
+
 #### Ход работы (задание 3).
 
 
